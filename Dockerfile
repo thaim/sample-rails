@@ -18,6 +18,9 @@ RUN yum install -y yarn
 WORKDIR /root/sample_unicorn_worker_killer/
 COPY . /root/sample_unicorn_worker_killer/
 
+RUN amazon-linux-extras install -y nginx1
+COPY server/nginx.conf /etc/nginx/nginx.conf
+
 RUN bundle install
 
-CMD "bundle" "exec" "rails" "s" "-b" "0.0.0.0"
+CMD "bundle" "exec" "unicorn_rails" "-c" "config/unicorn.rb" "-E" "development"

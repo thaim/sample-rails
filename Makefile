@@ -9,5 +9,5 @@ build: ## Build docker image
 		.
 
 run:
-	docker run -it --rm -p 3000:3000 \
+	docker run -it --rm -p 80:80 \
 		thaim/sample-unicorn-worker-killer
