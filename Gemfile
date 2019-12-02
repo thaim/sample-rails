@@ -11,6 +11,7 @@ gem 'sqlite3'
 # gem 'puma', '~> 3.11'
 # Use Unicorn as the app server
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
