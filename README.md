@@ -81,3 +81,35 @@ $ cat log/lograge_production.log
 method=GET path=/users format=html controller=UsersController action=index status=200 duration=9.14 view=5.98 db=0.64 time=2019-12-11 08:18:29 +0900 host= exception= exception_object=
 method=GET path=/users/2 format=html controller=UsersController action=show status=404 error='ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2' duration=6.23 view=0.00 db=0.74 time=2019-12-11 08:21:24 +0900 host= exception=["ActiveRecord::RecordNotFound", "Couldn't find User with 'id'=2"] exception_object=Couldn't find User with 'id'=2
 ```
+
+### ログフォーマッタの適用
+`config.lograge.formatter = Lograge::Formatters::Logstash.new`
+とすることでデフォルトのキーバリュー形式ではなくLogStash形式で出力できる
+
+```
+$ cat log/lograge_production.log
+{"method":"GET","path":"/users","format":"html","controller":"UsersController","action":"index","status":200,"duration":11.91,"view":7.76,"db":0.84,"time":"2019-12-11T09:07:06.242+09:00","host":null,"exception":null,"exception_object":null,"@timestamp":"2019-12-11T00:07:06.242Z","@version":"1","message":"[200] GET /users (UsersController#index)"}
+{"method":"GET","path":"/users/2","format":"html","controller":"UsersController","action":"show","status":404,"error":"ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2","duration":1.21,"view":0.0,"db":0.11,"time":"2019-12-11T09:07:09.951+09:00","host":null,"exception":["ActiveRecord::RecordNotFound","Couldn't find User with 'id'=2"],"exception_object":"Couldn't find User with 'id'=2","@timestamp":"2019-12-11T00:07:09.951Z","@version":"1","message":"[404] GET /users/2 (UsersController#show)"}
+```
+
+`Lograge::Formatters::Json.new` とすれば以下の通り
+
+```
+{"method":"GET","path":"/users","format":"html","controller":"UsersController","action":"index","status":200,"duration":9.1,"view":5.96,"db":0.63,"time":"2019-12-11T09:04:51.960+09:00","host":null,"exception":null,"exception_object":null}
+{"method":"GET","path":"/users/2","format":"html","controller":"UsersController","action":"show","status":404,"error":"ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2","duration":1.31,"view":0.0,"db":0.12,"time":"2019-12-11T09:04:54.804+09:00","host":null,"exception":["ActiveRecord::RecordNotFound","Couldn't find User with 'id'=2"],"exception_object":"Couldn't find User with 'id'=2"}
+```
+
+`Lograge::Formatters::LTSV.new` とすれば以下の通り
+
+```
+method:GET	path:/users	format:html	controller:UsersController	action:index	status:200	duration:9.19	view:6.13	db:0.61time:2019-12-11 09:09:45 +0900	host:	exception:	exception_object:
+method:GET	path:/users/2	format:html	controller:UsersController	action:show	status:404	error:'ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2'	duration:5.53	view:0.00	db:0.65	time:2019-12-11 09:09:58 +0900	host:	exception:["ActiveRecord::RecordNotFound", "Couldn't find User with 'id'=2"]	exception_object:Couldn't find User with 'id'=2
+```
+
+`Lograge::Formatters::Raw.new` とすれば以下の通り
+
+
+```
+{:method=>"GET", :path=>"/users", :format=>:html, :controller=>"UsersController", :action=>"index", :status=>200, :duration=>19.54, :view=>12.64, :db=>1.37, :time=>"2019-12-11T09:11:43.006+09:00", :host=>nil, :exception=>nil, :exception_object=>nil}
+{:method=>"GET", :path=>"/users/2", :format=>:html, :controller=>"UsersController", :action=>"show", :status=>404, :error=>"ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2", :duration=>1.37, :view=>0.0, :db=>0.12, :time=>"2019-12-11T09:11:45.121+09:00", :host=>nil, :exception=>["ActiveRecord::RecordNotFound", "Couldn't find User with 'id'=2"], :exception_object=>#<ActiveRecord::RecordNotFound: Couldn't find User with 'id'=2>}
+```
