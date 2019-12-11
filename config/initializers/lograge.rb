@@ -6,11 +6,21 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/lograge_#{Rails.env}.log"
 
   config.lograge.custom_options = lambda do |event|
-    {
+    data = {
       time: Time.now,
+      ip: event.payload[:ip],
       host: event.payload[:host],
-      exception: event.payload[:exception],
-      exception_object: event.payload[:exception_object]
+      referer: event.payload[:referer],
+      user_agent: event.payload[:user_agent],
+      login_id: event.payload[:login_id],
     }
+    if event.payload[:exception]
+      data[:exception] = event.payload[:exception],
+      data[:exception_object] = event.payload[:exception_object],
+      data[:exception_backtrace] = event.payload[:exception_object].backtrace[0..6]
+
+    end
+
+    data
   end
 end
