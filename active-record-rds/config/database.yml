@@ -30,4 +30,4 @@ production:
   variables:
     sql_mode: TRADITIONAL
   database: <%= ENV['DATABASE_NAME'] %>
-  host: <%= ENV['DATABASE_URL'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
