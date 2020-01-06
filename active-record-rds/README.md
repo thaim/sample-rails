@@ -1,24 +1,16 @@
-# README
+ActiveRecord RDS
+====================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RailsのActiveRecordを用いたAWS Aurora RDS(MySQL)との接続サンプル．
 
-Things you may want to cover:
 
-* Ruby version
+## deploy
 
-* System dependencies
+setup `.env` and apply
 
-* Configuration
+```
+$ bundle exec rails db:migrate
+$ bundle exec rails assets:precompile
 
-* Database creation
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
