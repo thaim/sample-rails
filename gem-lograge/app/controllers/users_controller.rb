@@ -4,12 +4,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    logger.info("index action")
     @users = User.all
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    logger.warn("show user details")
   end
 
   # GET /users/new
