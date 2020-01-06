@@ -1,7 +1,14 @@
 # gem-lograge
 
-プロダクション環境におけるログ管理の容易化に向けて
-コンピュータリーダブルなログを生成する．
+プロダクション環境におけるログ管理の容易化に向けて構造化ログを生成する．
+ただし，デフォルトのRails.loggerは変更せず，コントローラログのみ構造化する．
+
+## 導入方法
+- 基本的にすべて[GitHub](https://github.com/roidrage/lograge)に記載あり
+- `config/initializers/lograge.rb` にlogrageの設定を記述する．
+- `app/controller/application_controller.rb` に `append_info_to_payload` を追記する
+  - コントローラのログに載せる情報を追加する
+  - ここで追加した情報は `config/initiaizers/lograge.rb` でフォーマット化する
 
 ## 導入比較
 ### 標準出力
