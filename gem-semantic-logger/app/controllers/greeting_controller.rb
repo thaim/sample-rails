@@ -6,5 +6,8 @@ class GreetingController < ApplicationController
     logger.debug('hello message with payload', user: 'thaim')
 
     Rails.logger.info "hello message"
+
+    HardWorkerJob.perform_later
+    logger.debug "call job performing"
   end
 end
