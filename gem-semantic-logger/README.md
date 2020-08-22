@@ -363,3 +363,18 @@
 }
 ```
 
+### Rakeタスク
+
+```
+{
+  "host":"wnode03",
+  "application":"Semantic Logger",
+  "timestamp":"2020-08-22T16:05:34.063740Z",
+  "level":"info",
+  "level_index":2,
+  "pid":172500,
+  "thread":"47292104011600",
+  "name":"Rails",
+  "message":"logging hello from rake task"
+}
+```
