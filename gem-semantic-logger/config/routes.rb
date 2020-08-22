@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'error/index'
   ActiveAdmin.routes(self)
   get 'greeting/index'
   mount Sidekiq::Web => '/sidekiq'
